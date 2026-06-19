@@ -4,9 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { CalendarDays, MessageCircle, Star } from "lucide-react";
 
-// ---------------------------------------------------------------------------
 // Animation variants – subtle, readability-first
-// ---------------------------------------------------------------------------
 const CONTAINER = {
   hidden: {},
   show: {
@@ -35,9 +33,7 @@ const IMAGE_FADE = {
   },
 };
 
-// ---------------------------------------------------------------------------
 // Hero
-// ---------------------------------------------------------------------------
 export default function Hero() {
   return (
     <section
@@ -45,7 +41,15 @@ export default function Hero() {
       className="relative min-h-[88vh] overflow-hidden"
     >
       {/* Background Image */}
-      <div className="absolute inset-0">
+      <motion.div
+        className="absolute inset-0"
+        initial={{ scale: 1.04 }}
+        animate={{ scale: 1 }}
+        transition={{
+          duration: 8,
+          ease: "easeOut",
+        }}
+      >
         <Image
           src="/images/hero.png"
           alt="A SmileCraft dentist consulting a patient in a modern, welcoming clinic"
@@ -55,28 +59,29 @@ export default function Hero() {
           sizes="100vw"
           className="object-cover object-right"
         />
-      </div>
+      </motion.div>
 
       {/* Readability Overlay */}
       <div
         aria-hidden="true"
         className="
-          absolute inset-0
+          absolute inset-y-0 left-0
+          w-[65%]
           bg-gradient-to-r
           from-white
-          via-white/90
-          to-white/10
+          via-white/75
+          to-transparent
         "
       />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+      <div className="relative z-10 max-w-7xl pl-8 lg:pl-16">
         <div className="flex min-h-[88vh] items-center">
           <motion.div
             variants={CONTAINER}
             initial="hidden"
             animate="show"
-            className="max-w-xl"
+            className="max-w-[760px]"
           >
             {/* Trust Badge */}
             <motion.div variants={FADE_UP}>
@@ -87,15 +92,15 @@ export default function Hero() {
             <motion.h1
               variants={FADE_UP}
               className="
-                mt-6
-                text-[2.25rem]
-                font-bold
+                mt-2
+                font-['Manrope']
+                font-extrabold
                 leading-[1.15]
-                tracking-tight
-                text-neutral-900
+                tracking-[-0.03em]
+              text-zinc-900
                 sm:text-[3rem]
-                lg:text-[4rem]
-                max-w-[22ch]
+                lg:text-[3.5rem]
+
               "
             >
               Expert Dental Care in Ahmedabad for Healthier, More Confident
@@ -107,10 +112,10 @@ export default function Hero() {
               variants={FADE_UP}
               className="
                 mt-6
-                max-w-[52ch]
                 text-base
-                leading-relaxed
-                text-neutral-600
+                max-w-[56ch]
+                leading-[1.75]
+              text-neutral-700
                 sm:text-lg
               "
             >
@@ -143,6 +148,9 @@ export default function Hero() {
                   shadow-sm
                   transition-all duration-150
                   hover:bg-sky-700
+                  hover:-translate-y-0.5
+                  hover:shadow-xl
+                  hover:shadow-sky-500/25
                   focus-visible:outline
                   focus-visible:outline-2
                   focus-visible:outline-offset-2
@@ -168,7 +176,9 @@ export default function Hero() {
                 className="
                   inline-flex items-center justify-center gap-2
                   rounded-xl border border-neutral-200
-                  bg-white px-7 py-4
+                  px-7 py-4
+                  bg-white/80
+                  backdrop-blur-sm
                   text-base font-semibold text-neutral-800
                   shadow-sm
                   transition-all duration-150
@@ -188,28 +198,25 @@ export default function Hero() {
                 WhatsApp Us
               </a>
             </motion.div>
-
-            {/* Proof Strip */}
-            <motion.div variants={FADE_UP} className="mt-8">
-              <ProofStrip />
-            </motion.div>
           </motion.div>
         </div>
       </div>
     </section>
   );
 }
-// ---------------------------------------------------------------------------
-// Sub-components
-// ---------------------------------------------------------------------------
 
+// Sub-components
 function TrustBadge() {
   return (
     <div
       className="
         inline-flex items-center gap-2
-        rounded-full border border-amber-200 bg-amber-50
         px-4 py-1.5
+       bg-white/85
+        backdrop-blur-md
+        border border-neutral-200
+        shadow-lg
+        rounded-full
       "
       aria-label="Rated 4.8 stars by over 100 patients"
     >
@@ -217,33 +224,9 @@ function TrustBadge() {
         className="h-3.5 w-3.5 fill-amber-400 text-amber-400"
         aria-hidden="true"
       />
-      <span className="text-xs font-semibold tracking-wide text-amber-700">
-        4.8★ Google Rating • 100+ Happy Patients
+      <span className="text-xs font-semibold tracking-wide text-neutral-700">
+        4.8★ Google Rating • 5000+ Smiles Transformed
     </span>
-    </div>
-  );
-}
-
-function ProofStrip() {
-  const items = [
-    { stat: "10+", label: "Years of expertise" },
-    { stat: "5,000+", label: "Smiles transformed" },
-    { stat: "Same-day", label: "Emergency slots" },
-  ];
-
-  return (
-    <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-1">
-      {items.map(({ stat, label }, i) => (
-        <div key={stat} className="flex items-center gap-2">
-          {i !== 0 && (
-            <span aria-hidden="true" className="h-4 w-px bg-neutral-200" />
-          )}
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-sm font-bold text-neutral-900">{stat}</span>
-            <span className="text-xs text-neutral-400">{label}</span>
-          </div>
-        </div>
-      ))}
     </div>
   );
 }
