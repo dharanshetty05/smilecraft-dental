@@ -1,9 +1,7 @@
 "use client";
-
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-// ─── Minimal SVG icons ────────────────────────────────────────────────────────
 const icons = {
   implant: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
@@ -44,46 +42,52 @@ const icons = {
 
 const treatments = [
   {
-    id: "implants",
+    id: "missing-teeth",
     icon: icons.implant,
-    title: "Dental Implants",
+    eyebrow: "RESTORE",
+    title: "Missing Teeth",
     description:
-      "Replace missing teeth with a permanent, natural-looking solution that feels and functions like your own.",
+      "Replace one or more missing teeth with secure, natural-looking dental implants.",
   },
   {
-    id: "whitening",
+    id: "brighter-smile",
     icon: icons.whitening,
-    title: "Teeth Whitening",
+    eyebrow: "COSMETIC",
+    title: "Want a Brighter Smile",
     description:
-      "Brighten and refresh your smile with a professional whitening treatment tailored to your sensitivity and goals.",
+      "Professional whitening treatments designed to safely brighten your smile.",
   },
   {
-    id: "makeover",
+    id: "smile-makeover",
     icon: icons.makeover,
-    title: "Smile Makeovers",
+    eyebrow: "CONFIDENCE",
+    title: "Improve My Smile",
     description:
-      "Transform your smile's appearance with a fully personalised plan combining the right treatments for you.",
+      "Custom treatment plans to enhance the appearance and balance of your smile.",
   },
   {
-    id: "rootcanal",
+    id: "tooth-pain",
     icon: icons.rootcanal,
-    title: "Root Canal Treatment",
+    eyebrow: "RELIEF",
+    title: "Tooth Pain",
     description:
-      "Relieve tooth pain and preserve your natural tooth with a comfortable, precise procedure.",
+      "Comfortable root canal treatment to relieve pain and preserve your natural tooth.",
   },
   {
-    id: "braces",
+    id: "crooked-teeth",
     icon: icons.braces,
-    title: "Braces & Aligners",
+    eyebrow: "ALIGN",
+    title: "Crooked Teeth",
     description:
-      "Straighten crooked or crowded teeth comfortably and discreetly with modern orthodontic options.",
+      "Straighten crowded or uneven teeth with braces and clear aligners.",
   },
   {
     id: "emergency",
     icon: icons.emergency,
-    title: "Emergency Dental Care",
+    eyebrow: "URGENT",
+    title: "Dental Emergency",
     description:
-      "Get prompt, expert treatment when urgent dental problems arise — we're here when you need us most.",
+      "Fast access to expert care when urgent dental problems need immediate attention.",
   },
 ];
 
@@ -115,32 +119,42 @@ function TreatmentCard({ treatment, index }) {
       className="group flex flex-col gap-5 rounded-2xl border border-neutral-200 bg-white p-7 cursor-default"
       style={{ boxShadow: "0 1px 4px 0 rgba(0,0,0,0.04)" }}
     >
-      {/* Icon */}
-      <span
-        className="inline-flex items-center justify-center w-10 h-10 rounded-xl text-blue-600"
-        style={{ background: "#EFF6FF" }}
-        aria-hidden="true"
-      >
-        {treatment.icon}
-      </span>
+      <div className="flex flex-col h-full">
+  <span
+    className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-blue-50 text-blue-600 mb-5"
+  >
+    {treatment.icon}
+  </span>
 
-      {/* Text */}
-      <div className="flex flex-col gap-2">
-        <h3 className="text-[17px] font-semibold text-neutral-900 leading-snug tracking-tight">
-          {treatment.title}
-        </h3>
-        <p className="text-[14.5px] text-neutral-500 leading-relaxed">
-          {treatment.description}
-        </p>
-      </div>
+  <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-blue-600 mb-3">
+    {treatment.eyebrow}
+  </p>
 
-      {/* Inline link */}
-      <span className="mt-auto inline-flex items-center gap-1 text-[13.5px] font-medium text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200 select-none">
-        Learn more
-        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-      </span>
+  <h3 className="text-xl font-semibold text-neutral-900 mb-3">
+    {treatment.title}
+  </h3>
+
+  <p className="text-[15px] leading-relaxed text-neutral-500">
+    {treatment.description}
+  </p>
+
+  <div className="mt-6 flex items-center gap-2 text-blue-600 font-medium">
+    Explore Treatment
+    <svg
+      className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 5l7 7-7 7"
+      />
+    </svg>
+  </div>
+</div>
     </motion.div>
   );
 }
@@ -173,12 +187,11 @@ export default function SmileSolutions() {
             id="solutions-heading"
             className="text-3xl md:text-[2.1rem] font-bold text-neutral-900 leading-tight tracking-tight mb-4"
           >
-            What Can We Help You With?
+            Dental Care Designed Around Your Needs
           </h2>
           <p className="text-base text-neutral-500 leading-relaxed">
-            Whether you're looking to improve your smile, relieve pain, replace
-            missing teeth, or maintain long-term oral health — we're here to help
-            you find the right path forward.
+            From relieving pain to restoring confidence, we provide
+            personalised treatments to help you smile comfortably again.
           </p>
         </motion.div>
 
@@ -203,11 +216,10 @@ export default function SmileSolutions() {
             Need guidance?
           </p>
           <h3 className="text-2xl md:text-[1.65rem] font-bold text-neutral-900 leading-tight tracking-tight mb-3">
-            Not Sure Which Treatment Is Right For You?
+            Let's Find The Right Solution For Your Smile
           </h3>
           <p className="text-[15px] text-neutral-500 leading-relaxed max-w-md mb-8">
-            We'll help you understand your options and recommend the treatment
-            that best fits your needs — no pressure, no jargon.
+            Book a consultation and get a personalised treatment plan based on your goals, concerns, and oral health needs.
           </p>
           <motion.a
             href="#book"
